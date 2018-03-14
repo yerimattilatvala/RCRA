@@ -1,0 +1,8 @@
+% I can choose group or not
+{group}.
+% If group, I pick at least 2 seats
+2 {s1;s2;s3;s4} :- group.
+% If not group, I pick at most 3 seats
+{s1;s2;s3;s4} 3 :- not group.
+% if I picked 4 then full
+full :- 4 {s1;s2;s3;s4} 4.

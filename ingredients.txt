@@ -1,0 +1,2 @@
+% pick from 2 to 4 extra ingredients
+2 {tuna; pepper; cheese; olives; ham} 4.

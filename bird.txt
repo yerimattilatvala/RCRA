@@ -1,0 +1,4 @@
+flies :- bird, not ab.
+ab :- bird, penguin.
+{bird}.
+{penguin}.

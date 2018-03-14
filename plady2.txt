@@ -1,0 +1,27 @@
+c 1 = lady room 1 L1
+c 2 = lady room 2 L2
+c 3 = lady room 2 L3
+c 4 = door 1 tells truth P1
+c 5 = door 2 tells truth P2
+c 6 = door 2 tells truth P3
+p cnf 6 ???
+c There are one lady and 2 tigers
+1 2 3 0
+-1 -2 0
+-1 -3 0
+c Door1: there is a tiger in 1
+c P1 <-> -L1
+-4 -1 0
+1 4 0
+c Door2 : there is a lady in 2
+c P2 <-> L2
+-5 2 0
+-2 5 0
+c Door3 : there is a tiger at 2
+c P3 <-> -L2
+-6 -2 0
+2 6 0
+c At most one door tells the truth
+-4 -5 0
+-4 -6 0
+-5 -6 0

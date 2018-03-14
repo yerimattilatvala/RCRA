@@ -1,0 +1,12 @@
+#show in/2.
+#show reached/1.
+vtx(1). vtx(2). vtx(3). vtx(4).
+edge(1,2). edge(2,3). edge(2,4).
+edge(3,1). edge(3,4). edge(4,3). edge(4,1).
+in(X,Y) :- edge(X,Y), not out(X,Y).
+out(X,Y) :- edge(X,Y), not in(X,Y).
+:- in(X,Y), in(X,Z), Y!=Z.
+:- in(X,Z), in(Y,Z), X!=Y.
+reached(X) :- in(1,X).
+reached(Y) :- reached(X), in(X,Y).
+:- vtx(X), not reached(X).

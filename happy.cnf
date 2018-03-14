@@ -1,0 +1,8 @@
+c happy=1, rain=2, tv=3, weekend=4
+c happy.cnf
+c This is a comment line
+p cnf 5 4
+-4 -3 0
+-2 4 1 0
+-1 0
+2 0

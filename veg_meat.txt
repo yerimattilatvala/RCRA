@@ -1,0 +1,4 @@
+meat :- not veg.
+veg :- not meat.
+happy. (Si ponemos esta línea es como si no estuviera la de abajo)
+happy :- veg, not happy. %(:- veg)

@@ -1,0 +1,40 @@
+c up(1)_0=1, up(2)_0=2, up(3)_0=3
+c up(1)_1=4, up(2)_1=5, up(3)_1=6
+c light_0=7, light_1=8
+c toggle(1)=9, toggle(2)=10, toggle(3)=11
+p cnf 11 23
+c toggle(1) & up(1)_0 -> -up(1)_1
+c -toggle(1) v -up(1)_0 v -up(1)_1
+-9 -1 -4 0
+-10 -2 -5 0
+-11 -3 -6 0
+c toggle(X) & -up(X)_0 -> up(X)_1
+-9 1 4 0
+-10 2 5 0
+-11 3 6 0
+c toggle(x) & light_0 -> -light_1
+c -toggle(x) v -light_0 v -light_1
+-9 -7 -8 0
+-10 -7 -8 0
+-11 -7 -8 0
+c toggle(x) & -light_0 -> light_1
+c -toggle(x) v light_0 v light_1
+-9 7 8 0
+-10 7 8 0
+-11 7 8 0
+c Axiomas de frame
+c toggle(1) & up(x)_0 -> up(x)_1 X!=1
+-9 -2 5 0
+-9 -3 6 0
+c toggle(1) & up(x)_0 -> up(x)_1 X!=1
+-9 2 -5 0
+-9 3 -6 0
+c estado inicial
+1 0
+2 0
+3 0
+7 0
+c accion ejecutada
+9 0
+-10 0
+-11 0
