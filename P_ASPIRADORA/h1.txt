@@ -1,0 +1,35 @@
+#include<incmode>.
+#program base. 
+dir(u).
+dir(d).
+dir(l).
+dir(r).
+
+fila(0..f-1).
+columna(0..c-1).
+
+celda(X,Y) :- fila(X), columna(Y).
+
+#program step(t).
+
+1 {movimiento(D,t) : dir(D)} 1.
+
+pos(X, Y+1, t) :- pos(X, Y, t-1), movimiento(r,t),not obstaculo(X,Y+1), Y+1<c.
+pos(X, Y-1, t) :- pos(X, Y, t-1), movimiento(l,t),not obstaculo(X,Y-1), Y-1>=0.
+pos(X+1, Y, t) :- pos(X, Y, t-1), movimiento(d,t),not obstaculo(X+1,Y), X+1<f.
+pos(X-1, Y, t) :- pos(X, Y, t-1), movimiento(u,t),not obstaculo(X-1,Y), X-1>=0.
+
+%:- pos(X,Y,t), obstaculo(X,Y). 
+
+#program check(t).
+
+limpio(X,Y,t) :- limpio(X,Y,t-1).
+limpio(X,Y,t) :- pos(X,Y,t).
+:- query(t), not fin(t).
+:- query(t), celda(X,Y) , not obstaculo(X,Y), not limpio(X,Y,t).
+
+fin(t) :- pos(X,Y,t), query(t), meta(X,Y).
+
+#show movimiento/2.
+%#show meta/2.
+%#show limpio/3.

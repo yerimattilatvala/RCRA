@@ -6,11 +6,10 @@
 
 import argparse
 import sys
-from functions import *
-
+from aspFunctions import *
 
 #INICIO DEL PROGRAMA
-# Recibe argumentos de entrada
+#coger argumentos de entrada
 #---------------------------------------------------------------------------#
 ap = argparse.ArgumentParser()
 ap.add_argument( "-g", required=False)
@@ -20,7 +19,7 @@ args = vars(ap.parse_args()) #{'filename':'file'}
 dominosaMatrix = None
 try:
     file = open(args['filename'],'r')
-    dominosaMatrix = formatElements(file)
+    writeElements(file)
 except ValueError as errv:
     print('**** Error trying to format -> '+errv.args[0])
     sys.exit()
@@ -34,4 +33,3 @@ except Exception as erre:
     print(erre)
     sys.exit()
 
-solveDominosa(dominosaMatrix) 

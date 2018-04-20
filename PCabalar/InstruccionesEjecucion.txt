@@ -1,0 +1,16 @@
+Nombre : Yeray
+Apellidos : Méndez Romero
+Login : yeray.mendez
+
+1.SAT:
+    Para la parte de SAT se han desarrollado dos ficheros con código en Python, dominosa.py y functions.py.
+    Para ejecutarlos es necesaria una versión de Python 3, junto con la librería Numpy.
+    Instrucciones de ejecución:
+        python dominosa.py ruta_archivo.txt
+    
+    Este programa genera una salida por pantalla igual a la requerida y a su vez genera los siguientes ficheros:
+        - satfile.cnf : fichero DIMACS necesario para clasp.
+        - result.txt : salida de la ejecución de clasp satfile.cnf .
+        - file_result.txt : en donde se escribe la solución que se muestra por pantalla para mayor comodidad para comparar con las soluciones
+
+2.ASP:

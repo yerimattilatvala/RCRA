@@ -1,0 +1,33 @@
+#include<incmode>.
+#program base. 
+dir(u).
+dir(d).
+dir(l).
+dir(r).
+
+row(0..rows-1).
+col(0..columns-1).
+
+cell(X,Y) :- row(X), col(Y).
+
+#program step(t).
+
+1 {move(D,t) : dir(D)} 1.
+
+position(X, Y+1, t) :- position(X, Y, t-1), move(r,t),not obstacule(X,Y+1), Y+1<columns.
+position(X, Y-1, t) :- position(X, Y, t-1), move(l,t),not obstacule(X,Y-1), Y-1>=0.
+position(X+1, Y, t) :- position(X, Y, t-1), move(d,t),not obstacule(X+1,Y), X+1<rows.
+position(X-1, Y, t) :- position(X, Y, t-1), move(u,t),not obstacule(X-1,Y), X-1>=0.
+
+#program check(t).
+
+cleansed(X,Y,t) :- cleansed(X,Y,t-1).
+cleansed(X,Y,t) :- position(X,Y,t).
+:- query(t), not finish(t).
+:- query(t), cell(X,Y) , not obstacule(X,Y), not cleansed(X,Y,t).
+
+finish(t) :- position(X,Y,t), query(t), goal(X,Y).
+
+#show move/2.
+%#show goal/2.
+%#show cleansed/3.

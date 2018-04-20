@@ -1,0 +1,11 @@
+#const columns = 8.
+#const rows = 4.
+position(0,0,0).
+obstacule(0,5).
+obstacule(0,6).
+obstacule(2,2).
+obstacule(2,3).
+obstacule(2,4).
+obstacule(3,3).
+obstacule(3,4).
+goal(3,7).

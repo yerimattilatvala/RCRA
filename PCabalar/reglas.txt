@@ -1,0 +1,37 @@
+#const n=2.
+#show ficha/3.
+value(0..1).
+rows(0..1).
+cols(0..2).
+box(0,0,0).
+box(0,1,0).
+box(0,2,1).
+box(1,0,1).
+box(1,1,1).
+box(1,2,0).
+
+pos(rows,cols).
+
+% Comprobar si 2 posiciones son adyacentes
+ady(pos(X,Y), pos(X+1,Y)) :- rows(X), cols(Y), rows(X+1).
+ady(pos(X,Y), pos(X,Y+1)) :- rows(X), cols(Y), cols(Y+1).
+
+
+% Restringir fichas a casillas existentes para que no genere todos los posibles casos
+existBox(box(X,Y,V)) :- rows(X),cols(Y),value(V),box(X1,Y1,V1), X==X1,Y==Y1,V==V1.
+
+1 { ficha(pos(X,Y),pos(X1,Y1),V,V1): ady(pos(X,Y),pos(X1,Y1)),existBox(box(X,Y,V)),existBox(box(X1,Y1,V1))} 1.
+%:- ficha(P,Q,T).
+
+%:- ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), not ficha(pos(X3,Y3),pos(X4,Y4),pieza(V1,V2)).
+
+%ficha(pos(X1,Y1,V1),pos(X2,Y2),V1,V2) : box(X1,Y1,V1), box(X2,Y2,V2), box(X3,Y3,V1),box(X4,Y4,V2)).
+
+% Restringir fichas iguales
+:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), V1!=V3,V2!=V4.
+:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), V1!=V4,V2!=V3.
+% Restringir solapamiento
+%:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), X1 != X3, Y1 != Y3.
+%:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), X1 != X4, Y1 != Y4.
+%:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), X2 != X3, Y2 != Y3.
+%:-ficha(pos(X1,Y1),pos(X2,Y2),pieza(V1,V2)), ficha(pos(X3,Y3),pos(X4,Y4),pieza(V3,V4)), X2 != X4, Y2 != Y4.

@@ -1,0 +1,45 @@
+#const n=1.
+
+#const numFichas=((n+1)*(n+2))/2.
+%#show ficha/2.
+%#show ady/2.
+%#show pieza/2.
+%#show colocar/4.
+#show esta /4.
+
+fila(1..n+1).
+columna(1..n+2).
+valor(0..n).
+
+posicion(fila,columna).
+
+ady(posicion(X,Y), posicion(X+1,Y)) :- fila(X), columna(Y), fila(X+1).
+ady(posicion(X,Y), posicion(X-1,Y)) :- fila(X), columna(Y), fila(X-1).
+ady(posicion(X,Y), posicion(X,Y+1)) :- fila(X), columna(Y), columna(Y+1).
+ady(posicion(X,Y), posicion(X,Y-1)) :- fila(X), columna(Y), columna(Y-1).
+
+% Action generation
+1 {ficha(posicion(X,Y), posicion(X1,Y1)): ady(posicion(X,Y), posicion(X1, Y1))} 1 :- fila(X), columna(Y).
+
+
+% NO Fichas repetidas y solapadas
+:- ficha(P,Q), not ficha(Q,P).
+
+% Generar todas las fichas posibles
+pieza(X,Y) :- valor(X), valor(Y), X<=Y.
+
+
+colocar(P,Q,posicion(X,Y),posicion(X1,Y1)) :- ficha(posicion(X,Y), posicion(X1,Y1)), casilla (X,Y,P), casilla (X1,Y1,Q).
+
+esta(P,Q,posicion(X,Y),posicion(X1,Y1)) : colocar(P,Q,posicion(X,Y),posicion(X1,Y1)) :- pieza(P,Q).
+
+
+
+
+casilla(1,1,0).
+casilla(1,2,0).
+casilla(1,3,1).
+casilla(2,1,1).
+casilla(2,2,1).
+casilla(2,3,0).
+

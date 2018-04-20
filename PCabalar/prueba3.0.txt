@@ -1,0 +1,17 @@
+% NO Fichas repetidas y solapadas
+%:- ficha(P1,P2), not ficha(P2,P3), not ficha(P4,P2), not ficha(P1,P5), not ficha(P6,P1).
+-: ficha(P,Q) .
+% Generar todas las fichas posibles
+pieza(X,Y) :- value(X), value(Y), X<=Y.
+
+:- ficha(pos(X1,Y1),pos(X2,Y2)), 
+not ficha(pos(X2,Y2),pos(X3,Y3)), rows(X3),cols(Y3),
+X3==X2,Y2+1==Y3.
+
+:- ficha(pos(X1,Y1),pos(X2,Y2)), 
+not ficha(pos(X2,Y2),pos(X3,Y3)), rows(X3),cols(Y3),
+X3==X2+1,Y3==Y2.
+
+:- ficha(pos(X1,Y1),pos(X2,Y2)), 
+not ficha(pos(X2,Y2),pos(X3,Y3)), rows(X3),cols(Y3),
+X3==X2-1,Y2==Y3.

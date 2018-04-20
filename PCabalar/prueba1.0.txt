@@ -1,0 +1,51 @@
+#const n=2.
+#show chip/2.
+value(0..1).
+rows(0..1).
+cols(0..2).
+
+box(0,0,0).
+box(0,1,0).
+box(0,2,1).
+box(1,0,1).
+box(1,1,1).
+box(1,2,0).
+
+pos(rows,cols).
+
+% Comprobar si 2 posiciones son adyacentes
+adyacent(pos(X,Y), pos(X+1,Y)) :- rows(X), cols(Y), rows(X+1).
+adyacent(pos(X,Y), pos(X,Y+1)) :- rows(X), cols(Y), cols(Y+1).
+
+% Restringir fichas a casillas existentes para que no genere todos los posibles casos
+existBox(box(X,Y,V)) :- rows(X),cols(Y),value(V),box(X1,Y1,V1), X==X1,Y==Y1,V==V1.
+
+chip(box(X1,Y1,V1),box(X2,Y2,V2)) :-existBox(box(X1,Y1,V1)),
+                                    existBox(box(X2,Y2,V2)),
+                                    adyacent(pos(X1,Y1),pos(X2,Y2)). 
+
+direct(V1,V2,V3,V4):-value(V1),value(V2),value(V3),value(V4),V1==V3,V2==V4.
+
+inverted(V1,V2,V3,V4):-value(V1),value(V2),value(V3),value(V4),V1==V4,V2==V3.
+
+push(ficha(box(X1,Y1,V1),box(X2,Y2,V2)):-ficha(box(X3,Y3,V3),box(X4,Y4,V4)), 
+                                        not direct(V1,V2,V3,V4),
+                                        not inverted(V1,V2,V3,V4).
+
+% Restringir que solo haya una ficha
+6:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)),
+& V1 != V3, V2 != V4.
+&:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)),
+& V1 != V4, V2 != V3.
+
+% Restringir solpamiento
+&:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)), 
+&X2 != X3, Y2 != Y3.
+&:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)), 
+&X1 != X3, Y1 != Y3.
+&:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)),
+& X2 != X4, Y2 != Y4.
+&:- chip(box(X1,Y1,V1),box(X2,Y2,V2)),chip(box(X3,Y3,V3),box(X4,Y4,V4)), 
+&X1 != X4, Y1 != Y4.
+
+&1{chip(box(X1,Y1,V1),box(X2,Y2,V2)):box(X1,Y1,V1),box(X2,Y2,V2)}1 :- chip(box(X1,Y1,V1),box(X2,Y2,V2)).
